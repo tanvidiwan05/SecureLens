@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ─── Environment & Secrets ──────────────────────────────────────────────────
 .env
 .env.local
@@ -48,3 +49,44 @@ Thumbs.db
 *.swp
 *.swo
 .kiro
+=======
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Node.js / React / Vite
+node_modules/
+dist/
+build/
+.npm/
+*.log
+
+# Java / Spring Boot
+target/
+*.class
+*.jar
+*.war
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Docker
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+>>>>>>> 9d0cc3a47bee82e74fcb02ce009ccd076b841064
