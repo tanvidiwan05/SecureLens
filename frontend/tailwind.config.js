@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -29,16 +30,16 @@ export default {
           700: '#1d4ed8',
         },
         surface: {
-          50:  '#fafaf9',
-          100: '#f5f5f4',
-          200: '#e7e5e4',
-          300: '#d6d3d1',
-          400: '#a8a29e',
-          500: '#78716c',
-          600: '#57534e',
-          700: '#44403c',
-          800: '#292524',
-          900: '#1c1917',
+          50:  'rgb(var(--surface-50) / <alpha-value>)',
+          100: 'rgb(var(--surface-100) / <alpha-value>)',
+          200: 'rgb(var(--surface-200) / <alpha-value>)',
+          300: 'rgb(var(--surface-300) / <alpha-value>)',
+          400: 'rgb(var(--surface-400) / <alpha-value>)',
+          500: 'rgb(var(--surface-500) / <alpha-value>)',
+          600: 'rgb(var(--surface-600) / <alpha-value>)',
+          700: 'rgb(var(--surface-700) / <alpha-value>)',
+          800: 'rgb(var(--surface-800) / <alpha-value>)',
+          900: 'rgb(var(--surface-900) / <alpha-value>)',
         },
         critical: '#ef4444',
         warning:  '#f59e0b',

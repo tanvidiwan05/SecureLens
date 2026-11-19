@@ -74,7 +74,7 @@ export default function RiskChart({ summary }) {
       </div>
       {/* Centre label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pb-8 pointer-events-none">
-        <span className="text-3xl font-bold text-slate-100">{total}</span>
+        <span className="text-3xl font-bold text-surface-900">{total}</span>
         <span className="text-xs text-slate-500">findings</span>
       </div>
     </div>

@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from config import settings
-from routers import scans, findings
+from routers import scans, findings, network
 from auth.router import router as auth_router
 
 
@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Trustify API",
+    title="SecureLens API",
     description="AI-powered SAST orchestration platform",
     version="1.0.0",
     lifespan=lifespan,
@@ -41,8 +41,9 @@ app.add_middleware(
 app.include_router(scans.router,    prefix="/api/scans",    tags=["Scans"])
 app.include_router(findings.router, prefix="/api/findings", tags=["Findings"])
 app.include_router(auth_router,     prefix="/api/auth",     tags=["Auth"])
+app.include_router(network.router,  prefix="/api/network", tags=["Network"])
 
 
 @app.get("/api/health")
 async def health():
-    return {"status": "ok", "service": "trustify-backend"}
+    return {"status": "ok", "service": "securelens-backend"}

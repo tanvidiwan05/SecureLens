@@ -1,8 +1,8 @@
-# Trustify
+# SecureLens
 
 **AI-Powered Source Code Security Scanner**
 
-Trustify scans GitHub repositories and uploaded ZIP archives for security vulnerabilities, leaked secrets, and code quality issues using a suite of industry-standard static analysis tools — all enhanced with Google Gemini AI for plain-English explanations and guided remediation.
+SecureLens scans GitHub repositories and uploaded ZIP archives for security vulnerabilities, leaked secrets, and code quality issues using a suite of industry-standard static analysis tools — all enhanced with Google Gemini AI for plain-English explanations and guided remediation.
 
 ---
 
@@ -62,7 +62,7 @@ All scanning tools run **natively inside the backend container** — no Docker-i
 
 ```bash
 git clone <your-repo-url>
-cd trustify
+cd SecureLens
 ```
 
 ### 2. Configure environment variables
@@ -122,7 +122,7 @@ docker compose up --build
 ### Run the tool test suite (inside the container)
 
 ```bash
-docker exec trustify_backend python run_test.py
+docker exec securelens_backend python run_test.py
 ```
 
 This creates a temporary test workspace and runs all four tool runners, printing their raw output.
@@ -134,8 +134,8 @@ This creates a temporary test workspace and runs all four tool runners, printing
 | Variable | Required | Default | Description |
 |---|---|---|---|
 | `GEMINI_API_KEY` | **Yes** | — | Google Gemini API key for AI remediation |
-| `MONGO_URI` | No | `mongodb://mongodb:27017/trustify` | MongoDB connection string |
-| `WORKSPACE_DIR` | No | `/tmp/trustify_workspaces` | Where repos/ZIPs are extracted for scanning |
+| `MONGO_URI` | No | `mongodb://mongodb:27017/securelens` | MongoDB connection string |
+| `WORKSPACE_DIR` | No | `/tmp/securelens_workspaces` | Where repos/ZIPs are extracted for scanning |
 | `ENVIRONMENT` | No | `development` | App environment flag |
 
 ---
@@ -143,7 +143,7 @@ This creates a temporary test workspace and runs all four tool runners, printing
 ## Project Structure
 
 ```
-trustify/
+SecureLens/
 ├── backend/
 │   ├── main.py               # FastAPI app entry point
 │   ├── models.py             # Pydantic / MongoDB models

@@ -24,6 +24,7 @@ export default function ScanDetail() {
   const [typeFilter, setTypeFilter] = useState('all')
   const [downloading, setDownloading] = useState(false)
   const [downloadingPdf, setDownloadingPdf] = useState(false)
+  const [reportError, setReportError] = useState('')
   const [history, setHistory] = useState([])
 
   const fetchData = useCallback(async () => {
@@ -68,12 +69,26 @@ export default function ScanDetail() {
 
   const handleDownloadJSON = async () => {
     setDownloading(true)
-    try { await downloadReport(id, 'json') } finally { setDownloading(false) }
+    setReportError('')
+    try {
+      await downloadReport(id, 'json')
+    } catch (error) {
+      setReportError(error.response?.data?.detail || error.message || 'Failed to download the report.')
+    } finally {
+      setDownloading(false)
+    }
   }
 
   const handleDownloadPdf = async () => {
     setDownloadingPdf(true)
-    try { await downloadReport(id, 'pdf') } finally { setDownloadingPdf(false) }
+    setReportError('')
+    try {
+      await downloadReport(id, 'pdf')
+    } catch (error) {
+      setReportError(error.response?.data?.detail || error.message || 'Failed to download the PDF report.')
+    } finally {
+      setDownloadingPdf(false)
+    }
   }
 
   const handleRescan = async () => {
@@ -164,6 +179,7 @@ export default function ScanDetail() {
             )}
           </div>
         </div>
+        {reportError && <p role="alert" className="mt-2 text-sm text-red-600">{reportError}</p>}
       </div>
 
       {/* Running state */}

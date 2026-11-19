@@ -1,3 +1,4 @@
+import { useLayoutEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
@@ -6,6 +7,7 @@ import History from './pages/History'
 import AuthPage from './pages/AuthPage'
 import { useAuth } from './context/AuthContext'
 import LoadingSpinner from './components/LoadingSpinner'
+import NetworkDashboard from './pages/NetworkDashboard'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -16,7 +18,16 @@ function PrivateRoute({ children }) {
 function AppContent() {
   const { pathname } = useLocation()
   const { user, loading } = useAuth()
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem('securelens-theme') === 'dark'
+  )
   const isDashboard = pathname === '/'
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode)
+    document.documentElement.style.colorScheme = darkMode ? 'dark' : 'light'
+    localStorage.setItem('securelens-theme', darkMode ? 'dark' : 'light')
+  }, [darkMode])
 
   if (loading) return <LoadingSpinner message="Loading..." />
 
@@ -31,12 +42,13 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar darkMode={darkMode} onToggleTheme={() => setDarkMode((enabled) => !enabled)} />
       <main className={`flex-1 ${isDashboard ? '' : 'container mx-auto px-4 md:px-8 py-10 max-w-7xl'}`}>
         <Routes>
           <Route path="/"         element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/scan/:id" element={<PrivateRoute><ScanDetail /></PrivateRoute>} />
           <Route path="/history"  element={<PrivateRoute><History /></PrivateRoute>} />
+          <Route path="/network-dashboard" element={<PrivateRoute><NetworkDashboard /></PrivateRoute>} />
           <Route path="/auth"     element={user ? <Navigate to="/" replace /> : <AuthPage />} />
           <Route path="*"         element={<Navigate to="/" replace />} />
         </Routes>

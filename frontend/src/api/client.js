@@ -42,6 +42,33 @@ export const getScan = (id) =>
 export const deleteScan = (id) =>
   api.delete(`/scans/${id}`)
 
+// ── Network IDS ────────────────────────────────────────────────
+export const uploadNetworkCaptures = (files, onUploadProgress) => {
+  const formData = new FormData()
+  files.forEach((file) => {
+    formData.append('files', file, file.webkitRelativePath || file.name)
+  })
+  return api.post('/network/upload', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress,
+  }).then((r) => r.data)
+}
+
+export const listNetworkScans = (skip = 0, limit = 20) =>
+  api.get('/network/scans', { params: { skip, limit } }).then((r) => r.data)
+
+export const getNetworkScan = (id) =>
+  api.get(`/network/scans/${id}`).then((r) => r.data)
+
+export const deleteNetworkScan = (id) =>
+  api.delete(`/network/scans/${id}`)
+
+export const getNetworkAlerts = (id, skip = 0, limit = 1000) =>
+  api.get(`/network/scans/${id}/alerts`, { params: { skip, limit } }).then((r) => r.data)
+
+export const getNetworkIps = (id, kind = 'all', skip = 0, limit = 100) =>
+  api.get(`/network/scans/${id}/ips`, { params: { kind, skip, limit } }).then((r) => r.data)
+
 // ── Findings ───────────────────────────────────────────────────
 export const getFindings = (scanId, params = {}) =>
   api.get(`/findings/${scanId}`, { params }).then((r) => r.data)
@@ -62,9 +89,12 @@ export const downloadReport = async (scanId, format = 'json') => {
   a.href = url
   a.download = `SecureLens-report-${scanId.slice(0, 8)}.${ext}`
   document.body.appendChild(a)
-  a.click()
-  a.remove()
-  window.URL.revokeObjectURL(url)
+  try {
+    a.click()
+  } finally {
+    a.remove()
+    window.setTimeout(() => window.URL.revokeObjectURL(url), 1000)
+  }
 }
 
 // ── GitHub ─────────────────────────────────────────────────────

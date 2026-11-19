@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { listScans, deleteScan } from '../api/client'
 import { format } from 'date-fns'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { ClipboardList, ArrowLeft, ArrowRight, X } from 'lucide-react'
+import { ClipboardList, ArrowLeft, ArrowRight, Trash2 } from 'lucide-react'
 
 const STATUS_COLORS = {
   queued:   'text-slate-500',
@@ -122,9 +122,11 @@ export default function History() {
                         <Link to={`/scan/${scan.id}`} className="btn-secondary py-1.5 px-3 text-xs bg-slate-50 border border-slate-200">View</Link>
                         <button
                           onClick={() => handleDelete(scan.id)}
-                          className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-1.5 hover:bg-red-50 rounded-lg transition-all"
+                          title="Delete scan and findings"
+                          aria-label={`Delete scan ${scan.source_filename || scan.id}`}
+                          className="text-slate-400 hover:text-red-500 p-1.5 hover:bg-red-50 rounded-lg transition-all"
                         >
-                          <X className="w-4 h-4" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </td>

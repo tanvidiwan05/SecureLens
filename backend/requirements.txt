@@ -19,3 +19,4 @@ bcrypt==3.2.0                     # fix passlib compatibility
 authlib==1.3.0                    # OAuth (Google)
 dnspython==2.6.1                  # SRV support for Atlas
 certifi==2024.2.2                 # root certificates for Atlas
+scapy==2.6.1              # offline PCAP/PCAPNG IDS analysis

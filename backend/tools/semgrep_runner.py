@@ -21,7 +21,7 @@ def _save_debug(workspace_path: str, tool: str, stdout: str, stderr: str, return
         f.write(stdout or "(empty)")
     with open(f"{base}_stderr.txt", "w") as f:
         f.write(f"returncode: {returncode}\n\n{stderr or '(empty)'}")
-    print(f"[{tool.upper()}] Debug files: {base}_stdout.json  (host: /tmp/trustify_workspaces/{os.path.basename(workspace_path)}/_debug_{tool}_*)")
+    print(f"[{tool.upper()}] Debug files: {base}_stdout.json  (host: /tmp/securelens_workspaces/{os.path.basename(workspace_path)}/_debug_{tool}_*)")
 
 
 def run_semgrep(workspace_path: str) -> dict:

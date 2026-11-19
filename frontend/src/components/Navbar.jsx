@@ -1,14 +1,15 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { LogOut, User } from 'lucide-react'
+import { LogOut, Moon, Sun, User } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
 const navLinks = [
-  { to: '/',        label: 'Dashboard' },
+  { to: '/',        label: 'Code Lens' },
   { to: '/history', label: 'History'   },
+  { to: '/network-dashboard', label: 'Network Lens' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ darkMode, onToggleTheme }) {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
 
@@ -55,6 +56,17 @@ export default function Navbar() {
               </NavLink>
             ))}
           </nav>
+
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={darkMode}
+            className="p-2 rounded-lg text-surface-500 hover:text-brand-700 hover:bg-surface-100 transition-colors"
+          >
+            {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
 
           {/* User area */}
           {user && (

@@ -1,7 +1,7 @@
 """
 JobOrchestrator
 ───────────────
-The core engine of Trustify.
+The core engine of SecureLens.
 
 Flow:
   1. Update scan status → "running"
